@@ -1,0 +1,53 @@
+@import "bootstrap/variables.less";
+
+#tab_plugin_filemanager {
+  .container-fluid {
+    padding: 0;
+  }
+
+  .container-fluid > .row-fluid {
+    border: 1px solid @tableBorder;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.075);
+  }
+
+  .filemanager_files_top {
+    height: 600px;
+  }
+
+  .row-fluid [class*="span"] {
+    margin-left: 0;
+  }
+
+  .header {
+    line-height: @baseLineHeight;
+    border-bottom: 1px solid @tableBorder;
+  }
+
+  .header > div {
+    padding: 8px;
+    vertical-align: middle;
+    border-right: 1px solid #ccc;
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  .entry-hover > div {
+    padding: 8px;
+    line-height: 2*@baseLineHeight;
+    border-bottom: 1px solid @tableBorder;
+  }
+
+  .selected {
+    font-weight: bold;
+  }
+
+  .header,
+  .selected,
+  .entry-hover div:hover {
+    background-color: @tableBackgroundHover;
+  }
+
+  @import "bootstrap\responsive-utilities.less";
+}

@@ -1,0 +1,118 @@
+<div class="btn-toolbar">
+    <div class="btn-group">
+        <button class="btn" title="{{ _('Download') }}" data-bind="click: $root.download, css: { disabled: !$root.enableDownload() }"><i class="icon-download-alt"></i></button>
+        {% if enableSdSupport %}
+        <button class="btn" title="{{ _('Upload to SD') }}" data-bind="click: $root.uploadSD, css: { disabled: !$root.enableUploadSD() }"><i class="icon-upload-alt"></i></button>
+        {% endif %}
+        <button class="btn" title="{{ _('Remove') }}" data-bind="click: $root.remove, css: { disabled: !$root.enableRemove() }"><i class="icon-trash"></i></button>
+        <button class="btn" title="{{ _('Slice') }}" data-bind="click: $root.slice, css: { disabled: !$root.enableSlicing() }"><i class="icon-magic"></i></button>
+        <button class="btn" title="{{ _('Load') }}" data-bind="click: function() { $root.loadFile(false); }, css: { disabled: !$root.enableSelect(false) }"><i class="icon-folder-open"></i></button>
+        <button class="btn" title="{{ _('Load and Print') }}" data-bind="click: function() { $root.loadFile(true); }, css: { disabled: !$root.enableSelect(true) }"><i class="icon-print"></i></button>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn" title="{{ _('Create Folder') }}" data-bind="click: $root.showAddFolderDialog, css: { disabled: !$root.enableCreateFolder() }"><i class="icon-folder-close"></i></button>
+        <button class="btn" title="{{ _('Rename') }}" data-bind="click: $root.rename, css: { disabled: !$root.enableRename() }"><i class="icon-edit"></i></button>
+        <button class="btn" title="{{ _('Copy') }}" data-bind="click: $root.copy, css: { disabled: !$root.enableCopy() }"><i class="icon-copy"></i></button>
+        <button class="btn" title="{{ _('Cut') }}" data-bind="click: $root.cut, css: { disabled: !$root.enableCopy() }"><i class="icon-cut"></i></button>
+        <button class="btn" title="{{ _('Paste') }}" data-bind="click: $root.paste, css: { disabled: !$root.enablePaste() }"><i class="icon-paste"></i></button>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-wrench"></i></button>
+        <ul class="dropdown-menu">
+            <li><a href="#" data-bind="click: function() { $root.listStyle('folders_files'); }"><i class="icon-ok" data-bind="style: {visibility: listStyle() == 'folders_files' ? 'visible' : 'hidden'}"></i> {{ _('Sort by Folders, Files') }}</a></li>
+            <li><a href="#" data-bind="click: function() { $root.listStyle('files_folders'); }"><i class="icon-ok" data-bind="style: {visibility: listStyle() == 'files_folders' ? 'visible' : 'hidden'}"></i> {{ _('Sort by Files, Folders') }}</a></li>
+            <li><a href="#" data-bind="click: function() { $root.listStyle('mixed'); }"><i class="icon-ok" data-bind="style: {visibility: listStyle() == 'mixed' ? 'visible' : 'hidden'}"></i> {{ _('Mixed') }}</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-submenu">
+                <a href="#" tabindex="-1" data-bind="click: function() { $root.fileListHelper.changeSorting('nameAsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting().startsWith('name') ? 'visible' : 'hidden'}"></i> {{ _('Sort by name') }}</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('nameAsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'nameAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('nameDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'nameDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-submenu">
+                <a href="#" tabindex="-1" data-bind="click: function() { $root.fileListHelper.changeSorting('uploadDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting().startsWith('upload') ? 'visible' : 'hidden'}"></i> {{ _('Sort by upload date') }}</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('uploadAsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'uploadAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('uploadDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'uploadDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-submenu">
+                <a href="#" tabindex="-1" data-bind="click: function() { $root.fileListHelper.changeSorting('sizeDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting().startsWith('size') ? 'visible' : 'hidden'}"></i> {{ _('Sort by file size') }}</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('sizeAsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'sizeAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('sizeDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'sizeDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('machinecode'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'machinecode') ? 'visible' : 'hidden'}"></i> {{ _('Only show GCode files') }}</a></li>
+            <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('model'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'model') ? 'visible' : 'hidden'}"></i> {{ _('Only show STL files') }}</a></li>
+            {% if enableSdSupport %}
+                <li class="divider"></li>
+                <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('local'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'local') ? 'visible' : 'hidden'}"></i> {{ _('Only show files stored locally') }}</a></li>
+                <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('sd'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'sd') ? 'visible' : 'hidden'}"></i> {{ _('Only show files stored on SD') }}</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('printed'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'printed') ? 'visible' : 'hidden'}"></i> {{ _('Hide successfully printed files') }}</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12 header">
+            <div class="span6">{{ _('Name') }}</div>
+            <div class="span4">{{ _('Created') }}</div>
+            <div class="span2">{{ _('Size') }}</div>
+        </div>
+        <div class="span12 filemanager_files_top">
+            <div class="filemanager_files entry-hover">
+                <!-- ko if: currentPath() != "" -->
+                <div class="span12" data-bind="click: function() { var path = $root.currentPath().split('/'); path.pop(); $root.changeFolderByPath(path.join('/')); }"><i class="icon-arrow-left"></i> {{  _('Back') }}</div>
+                <!-- /ko -->
+
+                <!-- ko if: listStyle() == 'folders_files' -->
+                <!-- ko slimScrolledForeach: foldersOnlyList -->
+                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
+                <!-- /ko -->
+                <!-- ko slimScrolledForeach: filesOnlyList -->
+                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: listStyle() == 'files_folders' -->
+                <!-- ko slimScrolledForeach: filesOnlyList -->
+                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
+                <!-- /ko -->
+                <!-- ko slimScrolledForeach: foldersOnlyList -->
+                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: listStyle() == 'mixed' -->
+                <!-- ko slimScrolledForeach: fileListHelper.paginatedItems -->
+                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
+                <!-- /ko -->
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="filemanager_template_machinecode">
+    <div class="span6 title" data-bind="css: $root.files.getSuccessClass($data), text: name"></div>
+    <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
+    <div class="span2 size" data-bind="text: formatSize(size)"></div>
+</script>
+
+<script type="text/html" id="filemanager_template_model">
+    <div class="span6 title" data-bind="text: name"></div>
+    <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
+    <div class="span2 size" data-bind="text: formatSize(size)"></div>
+</script>
+
+<script type="text/html" id="filemanager_template_folder">
+    <div class="span6 title" data-bind=""><i class="icon-folder-open"></i><span><!-- ko text: name --><!-- /ko --><a href="#" style="float: right; padding-right: 20px;" class="hidden-desktop" data-bind="click: $root.dblClick">{{  _('Open') }}</a></span> </div>
+    <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
+    <div class="span2 size" data-bind="text: formatSize(size)"></div>
+</script>
