@@ -1,7 +1,6 @@
 # coding=utf-8
 from __future__ import absolute_import
 
-import logging
 import threading
 
 from flask import request, jsonify, make_response, url_for
@@ -12,7 +11,56 @@ from octoprint.filemanager.destinations import FileDestinations
 from octoprint.server.util.flask import restricted_access, get_json_command_from_request
 
 import octoprint.plugin
+import pkg_resources
 from .ThreadPool import ThreadPool
+
+
+# copied from pluginmanager plugin
+def _is_octoprint_compatible(compatibility_entries):
+	"""
+	Tests if the current octoprint_version is compatible to any of the provided ``compatibility_entries``.
+	"""
+
+	octoprint_version = _get_octoprint_version()
+
+	for octo_compat in compatibility_entries:
+		if not any(octo_compat.startswith(c) for c in ("<", "<=", "!=", "==", ">=", ">", "~=", "===")):
+			octo_compat = ">={}".format(octo_compat)
+
+		s = next(pkg_resources.parse_requirements("OctoPrint" + octo_compat))
+		if octoprint_version in s:
+			break
+	else:
+		return False
+
+	return True
+
+# copied from pluginmanager plugin
+def _get_octoprint_version_string():
+	from octoprint._version import get_versions
+	return get_versions()["version"]
+
+# copied from pluginmanager plugin
+def _get_octoprint_version():
+	octoprint_version_string = _get_octoprint_version_string()
+
+	if "-" in octoprint_version_string:
+		octoprint_version_string = octoprint_version_string[:octoprint_version_string.find("-")]
+
+	octoprint_version = pkg_resources.parse_version(octoprint_version_string)
+	if isinstance(octoprint_version, tuple):
+		# old setuptools
+		base_version = []
+		for part in octoprint_version:
+			if part.startswith("*"):
+				break
+			base_version.append(part)
+		octoprint_version = tuple(base_version)
+	else:
+		# new setuptools
+		octoprint_version = pkg_resources.parse_version(octoprint_version.base_version)
+
+	return octoprint_version
 
 
 class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
@@ -21,7 +69,7 @@ class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
 						octoprint.plugin.ShutdownPlugin,
 						octoprint.plugin.SettingsPlugin):
 
-	def __init__(self):
+	def initialize(self):
 		self._worker_lock_mutex = threading.RLock()
 		self._worker_locks = dict()
 
@@ -31,9 +79,6 @@ class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
 		self.workerPool = ThreadPool(5)
 		self.workerBusy = 5 * [False]
 		self.workerProgress = 5 * [dict(command="", progress=0, lastfile="")]
-
-	def initialize(self):
-		pass
 
 	def on_shutdown(self):
 		if any(self.workerBusy):
@@ -326,10 +371,41 @@ class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
 			else:
 				self._workerProgress_locks[workerID] = (counter, lock)
 
+	##~~ Softwareupdate hook
+
+	def get_update_information(self):
+		# Define the configuration for your plugin to use with the Software Update
+		# Plugin here. See https://github.com/foosel/OctoPrint/wiki/Plugin:-Software-Update
+		# for details.
+		return dict(
+			filemanager=dict(
+				displayName="FileManager Plugin",
+				displayVersion=self._plugin_version,
+
+				# version check: github repository
+				type="github_release",
+				user="Salandora",
+				repo="OctoPrint-FileManager",
+				current=self._plugin_version,
+
+				# update method: pip
+				pip="https://github.com/Salandora/OctoPrint-FileManager/archive/{target_version}.zip"
+			)
+		)
+
 
 __plugin_name__ = "FileManager"
 
 
 def __plugin_load__():
 	global __plugin_implementation__
+	if not _is_octoprint_compatible(["1.3.0"]):
+		__plugin_implementation__ = None
+		return
+
 	__plugin_implementation__ = FilemanagerPlugin()
+
+	global __plugin_hooks__
+	__plugin_hooks__ = {
+		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
+	}

@@ -97,11 +97,12 @@ $(function() {
             return _.filter(self.fileListHelper.paginatedItems(), filter);
         };
 
-        self.files.allItems.subscribe(function (newValue) {
-            self.fileListHelper.updateItems(newValue);
-            self.selectedFiles([]);
-            self.changeFolderByPath(self.currentPath());
-        });
+        if (self.files.hasOwnProperty("allItems"))
+            self.files.allItems.subscribe(function (newValue) {
+                self.fileListHelper.updateItems(newValue);
+                self.selectedFiles([]);
+                self.changeFolderByPath(self.currentPath());
+            });
 
         self.dblClick = function(data) {
             if (!data.hasOwnProperty("type"))
