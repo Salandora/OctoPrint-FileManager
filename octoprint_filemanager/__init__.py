@@ -22,7 +22,6 @@ def _is_octoprint_compatible(compatibility_entries):
 	"""
 
 	octoprint_version = _get_octoprint_version()
-
 	for octo_compat in compatibility_entries:
 		if not any(octo_compat.startswith(c) for c in ("<", "<=", "!=", "==", ">=", ">", "~=", "===")):
 			octo_compat = ">={}".format(octo_compat)
@@ -36,13 +35,9 @@ def _is_octoprint_compatible(compatibility_entries):
 	return True
 
 # copied from pluginmanager plugin
-def _get_octoprint_version_string():
-	from octoprint._version import get_versions
-	return get_versions()["version"]
-
-# copied from pluginmanager plugin
 def _get_octoprint_version():
-	octoprint_version_string = _get_octoprint_version_string()
+	from octoprint.server import VERSION
+	octoprint_version_string = VERSION
 
 	if "-" in octoprint_version_string:
 		octoprint_version_string = octoprint_version_string[:octoprint_version_string.find("-")]
@@ -55,7 +50,7 @@ def _get_octoprint_version():
 			if part.startswith("*"):
 				break
 			base_version.append(part)
-		octoprint_version = tuple(base_version)
+		octoprint_version = ".".join(base_version)
 	else:
 		# new setuptools
 		octoprint_version = pkg_resources.parse_version(octoprint_version.base_version)
