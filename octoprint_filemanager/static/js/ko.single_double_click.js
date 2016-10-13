@@ -28,11 +28,11 @@ ko.bindingHandlers.singleOrDoubleClick = {
                     $(element).enableSelection();
                     if (clicks === 1) {
                         if (singleHandler !== undefined) {
-                            singleHandler.call(this, bindingContext.$data, event);
+                            singleHandler.call(this, bindingContext.$data, e);
                         }
                     } else {
                         if (doubleHandler !== undefined) {
-                            doubleHandler.call(this, bindingContext.$data, event);
+                            doubleHandler.call(this, bindingContext.$data, e);
                         }
                     }
                     clicks = 0;
