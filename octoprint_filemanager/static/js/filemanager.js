@@ -22,7 +22,6 @@ $(function() {
         self.actionObject = ko.observable({ action: undefined, array: [] });
 
         // For Rename and Create Folder dialog
-        self.addFolderDialog = undefined;
         self.name = ko.observable("");
 
         self.fileListHelper = new ItemListHelper(
@@ -199,9 +198,6 @@ $(function() {
 
             return files[0].type == "machinecode" && self.files.enableSelect(files[0], printAfterSelect);
         };
-        self.enableCreateFolder = function() {
-            return self.loginState.isUser();
-        };
         self.enableRename = function() {
             return self.loginState.isUser() && self.selectedFiles().length == 1 && self.checkSelectedOrigin("local");
         };
@@ -274,9 +270,17 @@ $(function() {
         };
 
         self.showAddFolderDialog = function() {
-            if (self.addFolderDialog) {
-                self.addFolderDialog.modal("show");
-            }
+            if (!self.loginState.isUser())
+                return;
+
+            var activeFolder = self.files.currentPath();
+            self.files.changeFolderByPath(self.currentPath());
+
+            self.files.addFolderDialog.one("hidden", function() {
+                self.files.changeFolderByPath(activeFolder);
+            });
+
+            self.files.showAddFolderDialog();
         };
         self.rename = function() {
             if (!self.enableRename())

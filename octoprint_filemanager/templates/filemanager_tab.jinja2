@@ -11,7 +11,7 @@
     </div>
 
     <div class="btn-group">
-        <button class="btn" title="{{ _('Create Folder') }}" data-bind="click: $root.showAddFolderDialog, css: { disabled: !$root.enableCreateFolder() }"><i class="icon-folder-close"></i></button>
+        <button class="btn" title="{{ _('Create Folder') }}" data-bind="click: $root.showAddFolderDialog, css: { disabled: !$root.loginState.isUser() }"><i class="icon-folder-close"></i></button>
         <button class="btn" title="{{ _('Rename') }}" data-bind="click: $root.rename, css: { disabled: !$root.enableRename() }"><i class="icon-edit"></i></button>
         <button class="btn" title="{{ _('Copy') }}" data-bind="click: $root.copy, css: { disabled: !$root.enableCopy() }"><i class="icon-copy"></i></button>
         <button class="btn" title="{{ _('Cut') }}" data-bind="click: $root.cut, css: { disabled: !$root.enableCopy() }"><i class="icon-cut"></i></button>
