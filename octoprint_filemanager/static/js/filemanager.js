@@ -117,11 +117,11 @@ $(function() {
         self.changeFolder = function(data) {
             self.selectedFiles([]);
 
-            self.currentPath(OctoPrint.files.pathForElement(data));
+            self.currentPath(OctoPrint.files.pathForEntry(data));
             self.fileListHelper.updateItems(data.children);
         };
         self.changeFolderByPath = function(path) {
-            var element = OctoPrint.files.elementByPath(path, { children: self.files.allItems() });
+            var element = self.files.elementByPath(path, { children: self.files.allItems() });
             if (element) {
                 self.currentPath(path);
                 self.fileListHelper.updateItems(element.children);
@@ -225,7 +225,7 @@ $(function() {
                 return;
 
             var element = self.selectedFiles()[0];
-            var path = OctoPrint.files.pathForElement(element);
+            var path = OctoPrint.files.pathForEntry(element);
 
             var data = {
                 command: "uploadSd"
@@ -247,7 +247,7 @@ $(function() {
                     if (!sortedByOrigins.hasOwnProperty(origin))
                         sortedByOrigins[origin] = [];
 
-                    sortedByOrigins[origin].push(OctoPrint.files.pathForElement(element));
+                    sortedByOrigins[origin].push(OctoPrint.files.pathForEntry(element));
                 });
 
                 _.each(sortedByOrigins, function (value, key) {
@@ -290,9 +290,9 @@ $(function() {
             primarybtn.unbind('click').bind('click', function (e) {
                 var element = self.selectedFiles()[0];
                 var oldname = element.name;
-                var source = OctoPrint.files.pathForElement(element);
+                var source = OctoPrint.files.pathForEntry(element);
                 element.name = self.name();
-                var destination = OctoPrint.files.pathForElement(element);
+                var destination = OctoPrint.files.pathForEntry(element);
                 element.name = oldname;
 
                 OctoPrint.files.move("local", source, destination);
@@ -314,7 +314,7 @@ $(function() {
             };
 
             _.each(self.selectedFiles(), function(element) {
-                tmp.array.push(OctoPrint.files.pathForElement(element));
+                tmp.array.push(OctoPrint.files.pathForEntry(element));
             });
 
             self.actionObject(tmp);
@@ -330,7 +330,7 @@ $(function() {
             };
 
             _.each(self.selectedFiles(), function(element) {
-                tmp.array.push(OctoPrint.files.pathForElement(element));
+                tmp.array.push(OctoPrint.files.pathForEntry(element));
             });
 
             self.actionObject(tmp);
