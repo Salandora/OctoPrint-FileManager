@@ -344,19 +344,36 @@ $(function() {
             if (!self.enablePaste())
                 return;
 
-            var data = { command: self.actionObject().action, sources: self.actionObject().array, destinations: self.currentPath() };
+            var action = function(data) {
+                if (data.sources.length > 1) {
+                    OctoPrint.postJson(self.API_FILESURL + "local/bulkOperation", data);
+                }
+                else {
+                    if (data.command == "copy") {
+                        OctoPrint.files.copy("local", data.sources[0], data.destinations[0]);
+                    }
+                    else if (data.command == "move") {
+                        OctoPrint.files.move("local", data.sources[0], data.destinations[0]);
+                    }
+                }
+            };
+
+            var data = {
+                command: self.actionObject().action,
+                sources: self.actionObject().array,
+                destinations: [self.currentPath()]
+            };
             self.actionObject({ action: undefined, array: [] });
 
-            if (data.sources.length > 1) {
-                OctoPrint.postJson(self.API_FILESURL + "local/bulkOperation", data);
+            if (self.selectedFiles().length == 0) {
+                action(data);
             }
-            else {
-                if (data.command == "copy") {
-                    OctoPrint.files.copy("local", data.sources[0], self.currentPath());
-                }
-                else if (data.command == "move") {
-                    OctoPrint.files.move("local", data.sources[0], self.currentPath());
-                }
+            else if (self.selectedFiles().length == 1) {
+                var dst = self.selectedFiles()[0];
+                if (dst.type == "folder")
+                    data.destinations = [OctoPrint.files.pathForEntry(dst)];
+
+                action(data);
             }
         };
 
