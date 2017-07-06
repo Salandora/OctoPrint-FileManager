@@ -350,10 +350,10 @@ $(function() {
                 }
                 else {
                     if (data.command == "copy") {
-                        OctoPrint.files.copy("local", data.sources[0], data.destinations[0]);
+                        OctoPrint.files.copy("local", data.sources[0], data.destinations);
                     }
                     else if (data.command == "move") {
-                        OctoPrint.files.move("local", data.sources[0], data.destinations[0]);
+                        OctoPrint.files.move("local", data.sources[0], data.destinations);
                     }
                 }
             };
@@ -361,7 +361,7 @@ $(function() {
             var data = {
                 command: self.actionObject().action,
                 sources: self.actionObject().array,
-                destinations: [self.currentPath()]
+                destinations: self.currentPath()
             };
             self.actionObject({ action: undefined, array: [] });
 
@@ -371,7 +371,7 @@ $(function() {
             else if (self.selectedFiles().length == 1) {
                 var dst = self.selectedFiles()[0];
                 if (dst.type == "folder")
-                    data.destinations = [OctoPrint.files.pathForEntry(dst)];
+                    data.destinations = OctoPrint.files.pathForEntry(dst);
 
                 action(data);
             }
