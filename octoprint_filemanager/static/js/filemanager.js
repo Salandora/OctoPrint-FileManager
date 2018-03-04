@@ -87,14 +87,14 @@ $(function() {
             0
         );
 
-        self.foldersOnlyList = function() {
+        self.foldersOnlyList = ko.dependentObservable(function() {
             filter = function(data) { return data["type"] && data["type"] == "folder"; };
             return _.filter(self.fileListHelper.paginatedItems(), filter);
-        };
-        self.filesOnlyList = function() {
+        });
+        self.filesOnlyList = ko.dependentObservable(function() {
             filter = function(data) { return data["type"] && data["type"] != "folder"; };
             return _.filter(self.fileListHelper.paginatedItems(), filter);
-        };
+        });
 
         if (self.files.hasOwnProperty("allItems"))
             self.files.allItems.subscribe(function (newValue) {
