@@ -74,18 +74,18 @@
                 <!-- /ko -->
 
                 <!-- ko if: listStyle() == 'folders_files' -->
-                <!-- ko slimScrolledForeach: foldersOnlyList -->
+                <!-- ko slimScrolledForeach: foldersOnlyList() -->
                 <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
                 <!-- /ko -->
-                <!-- ko slimScrolledForeach: filesOnlyList -->
+                <!-- ko slimScrolledForeach: filesOnlyList() -->
                 <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: listStyle() == 'files_folders' -->
-                <!-- ko slimScrolledForeach: filesOnlyList -->
+                <!-- ko slimScrolledForeach: filesOnlyList() -->
                 <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
                 <!-- /ko -->
-                <!-- ko slimScrolledForeach: foldersOnlyList -->
+                <!-- ko slimScrolledForeach: foldersOnlyList() -->
                 <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
                 <!-- /ko -->
                 <!-- /ko -->
