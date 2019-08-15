@@ -1,3 +1,7 @@
+# WARNING
+
+Plugin actually not in active development!
+
 # OctoPrint-FileManager
 
 ## Setup
