@@ -1,3 +1,6 @@
+# based on: https://www.metachris.com/2016/04/python-threadpool/
+# which was based on http://code.activestate.com/recipes/577187-python-thread-pool/
+
 import sys
 IS_PY2 = sys.version_info < (3, 0)
 
