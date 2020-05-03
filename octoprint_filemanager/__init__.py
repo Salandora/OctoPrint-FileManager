@@ -11,51 +11,7 @@ from octoprint.filemanager.destinations import FileDestinations
 from octoprint.server.util.flask import restricted_access, get_json_command_from_request
 
 import octoprint.plugin
-import pkg_resources
 from .ThreadPool import ThreadPool
-
-
-# copied from pluginmanager plugin
-def _is_octoprint_compatible(compatibility_entries):
-	"""
-	Tests if the current octoprint_version is compatible to any of the provided ``compatibility_entries``.
-	"""
-
-	octoprint_version = _get_octoprint_version()
-	for octo_compat in compatibility_entries:
-		if not any(octo_compat.startswith(c) for c in ("<", "<=", "!=", "==", ">=", ">", "~=", "===")):
-			octo_compat = ">={}".format(octo_compat)
-
-		s = next(pkg_resources.parse_requirements("OctoPrint" + octo_compat))
-		if octoprint_version in s:
-			break
-	else:
-		return False
-
-	return True
-
-# copied from pluginmanager plugin
-def _get_octoprint_version():
-	from octoprint.server import VERSION
-	octoprint_version_string = VERSION
-
-	if "-" in octoprint_version_string:
-		octoprint_version_string = octoprint_version_string[:octoprint_version_string.find("-")]
-
-	octoprint_version = pkg_resources.parse_version(octoprint_version_string)
-	if isinstance(octoprint_version, tuple):
-		# old setuptools
-		base_version = []
-		for part in octoprint_version:
-			if part.startswith("*"):
-				break
-			base_version.append(part)
-		octoprint_version = ".".join(base_version)
-	else:
-		# new setuptools
-		octoprint_version = pkg_resources.parse_version(octoprint_version.base_version)
-
-	return octoprint_version
 
 
 class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
@@ -395,10 +351,6 @@ __plugin_pythoncompat__ = ">=2.7,<4"
 
 def __plugin_load__():
 	global __plugin_implementation__
-	if not _is_octoprint_compatible(["1.3.0"]):
-		__plugin_implementation__ = None
-		return
-
 	__plugin_implementation__ = FilemanagerPlugin()
 
 	global __plugin_hooks__
