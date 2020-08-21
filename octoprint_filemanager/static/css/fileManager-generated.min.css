@@ -1,1 +1,160 @@
-#tab_plugin_filemanager .container-fluid{padding:0}#tab_plugin_filemanager .container-fluid>.row-fluid{border:1px solid #ddd;border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.075)}#tab_plugin_filemanager .filemanager_files_top{height:600px}#tab_plugin_filemanager .row-fluid [class*=span]{margin-left:0}#tab_plugin_filemanager .header{line-height:20px;border-bottom:1px solid #ddd}#tab_plugin_filemanager .header>div{padding:8px;vertical-align:middle;border-right:1px solid #ccc}#tab_plugin_filemanager .header>div:last-child{border-right:0}#tab_plugin_filemanager .entry-hover>div{padding:8px;line-height:40px;border-bottom:1px solid #ddd}#tab_plugin_filemanager .selected{font-weight:700}#tab_plugin_filemanager .entry-hover div:hover,#tab_plugin_filemanager .header,#tab_plugin_filemanager .selected{background-color:#f5f5f5}@-ms-viewport{width:device-width}#tab_plugin_filemanager .hidden{display:none;visibility:hidden}#tab_plugin_filemanager .visible-phone{display:none!important}#tab_plugin_filemanager .visible-tablet{display:none!important}#tab_plugin_filemanager .hidden-desktop{display:none!important}#tab_plugin_filemanager .visible-desktop{display:inherit!important}@media (min-width:768px) and (max-width:979px){#tab_plugin_filemanager .hidden-desktop{display:inherit!important}#tab_plugin_filemanager .visible-desktop{display:none!important}#tab_plugin_filemanager .visible-tablet{display:inherit!important}#tab_plugin_filemanager .hidden-tablet{display:none!important}}@media (max-width:767px){#tab_plugin_filemanager .hidden-desktop{display:inherit!important}#tab_plugin_filemanager .visible-desktop{display:none!important}#tab_plugin_filemanager .visible-phone{display:inherit!important}#tab_plugin_filemanager .hidden-phone{display:none!important}}#tab_plugin_filemanager .visible-print{display:none!important}@media print{#tab_plugin_filemanager .visible-print{display:inherit!important}#tab_plugin_filemanager .hidden-print{display:none!important}}
+#tab_plugin_filemanager .container-fluid{
+  padding:0
+}
+
+#tab_plugin_filemanager .container-fluid>.row-fluid{
+  border:1px solid #ddd;
+  border-radius:3px;
+  box-shadow:0 1px 2px rgba(0,0,0,.075)
+}
+
+#tab_plugin_filemanager .filemanager_files_top{
+  height:600px
+}
+
+#tab_plugin_filemanager .row-fluid [class*=span]{
+  margin-left:0
+}
+
+#tab_plugin_filemanager .title{
+    width: calc(65% - 10px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+#tab_plugin_filemanager .title:hover{
+     overflow:visible;
+     animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+#tab_plugin_filemanager .row-fluid .span4 {
+    width: 20%;
+}
+
+#tab_plugin_filemanager .row-fluid .span2 {
+    width: 13%;
+    text-align: right;
+}
+
+#tab_plugin_filemanager .span4.uploaded {
+    width: 21%;
+    text-align: right;
+    padding-right: 10px;
+    position:absolut;
+}
+
+#tab_plugin_filemanager .row-fluid .span2 {
+    width: 13%;
+    text-align: right;
+}
+
+#tab_plugin_filemanager .header{
+  line-height:20px;
+  border-bottom:1px solid #ddd;
+  width:100%;
+}
+
+#tab_plugin_filemanager .header>div{
+  padding:8px;
+  vertical-align:middle;
+  border-right:1px solid #ccc;
+}
+
+#tab_plugin_filemanager .header .span6{
+    width:65%;
+}
+
+#tab_plugin_filemanager .header .span4{
+    width:20%;
+}
+
+#tab_plugin_filemanager .header .span2{
+    width:15%;
+}
+
+#tab_plugin_filemanager .header>div:last-child{
+  border-right:0;
+}
+
+#tab_plugin_filemanager .entry-hover>div{
+  padding:8px;line-height:40px;border-bottom:1px solid #ddd
+}
+
+#tab_plugin_filemanager .selected{
+  font-weight:700
+}
+#tab_plugin_filemanager .entry-hover div:hover,#tab_plugin_filemanager .header,#tab_plugin_filemanager .selected{
+  background-color:#f5f5f5
+}
+
+@-ms-viewport{
+  width:device-width
+}
+
+#tab_plugin_filemanager .hidden{
+  display:none;visibility:hidden
+}
+
+#tab_plugin_filemanager .visible-phone{
+  display:none!important
+}
+
+#tab_plugin_filemanager .visible-tablet{
+  display:none!important
+}
+
+#tab_plugin_filemanager .hidden-desktop{
+  display:none!important
+}
+#tab_plugin_filemanager .visible-desktop{
+  display:inherit!important
+}
+
+@media (min-width:768px) and (max-width:979px){
+  #tab_plugin_filemanager .hidden-desktop{
+    display:inherit!important
+  }
+
+  #tab_plugin_filemanager .visible-desktop{
+    display:none!important}#tab_plugin_filemanager .visible-tablet{
+      display:inherit!important
+    }
+    #tab_plugin_filemanager .hidden-tablet{
+        display:none!important
+    }
+}
+
+@media (max-width:767px){
+  #tab_plugin_filemanager .hidden-desktop{
+    display:inherit!important
+  }
+  #tab_plugin_filemanager .visible-desktop{
+    display:none!important
+  }
+  #tab_plugin_filemanager .visible-phone{
+    display:inherit!important
+  }
+  #tab_plugin_filemanager .hidden-phone{
+    display:none!important
+  }
+}
+
+#tab_plugin_filemanager .visible-print{
+  display:none!important
+}
+
+@media print{
+  #tab_plugin_filemanager .visible-print{
+    display:inherit!important
+  }
+  #tab_plugin_filemanager .hidden-print{d
+    isplay:none!important
+  }
+}
