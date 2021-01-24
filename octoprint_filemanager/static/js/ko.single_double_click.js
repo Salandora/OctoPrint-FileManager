@@ -23,9 +23,9 @@ ko.bindingHandlers.singleOrDoubleClick = {
 
             clicks++;
             if (clicks === 1) {
-                $(element).disableSelection();
+                $(element).css('user-select', 'none');
                 setTimeout(function () {
-                    $(element).enableSelection();
+                    $(element).css('user-select', 'auto');
                     if (clicks === 1) {
                         if (singleHandler !== undefined) {
                             singleHandler.call(this, bindingContext.$data, e);
