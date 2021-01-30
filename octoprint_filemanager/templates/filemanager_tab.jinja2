@@ -100,19 +100,19 @@
 </div>
 
 <script type="text/html" id="filemanager_template_machinecode">
-    <div class="span6 title" data-bind="css: $root.files.getSuccessClass($data), text: name"></div>
+    <div class="span6 title" data-bind="css: $root.files.getSuccessClass($data)"><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: name --><!-- /ko --></div></div>
     <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
     <div class="span2 size" data-bind="text: formatSize(size)"></div>
 </script>
 
 <script type="text/html" id="filemanager_template_model">
-    <div class="span6 title" data-bind="text: name"></div>
+    <div class="span6 title"><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: name --><!-- /ko --></div></div>
     <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
     <div class="span2 size" data-bind="text: formatSize(size)"></div>
 </script>
 
 <script type="text/html" id="filemanager_template_folder">
-    <div class="span6 title" data-bind=""><i class="icon-folder-open"></i><span><!-- ko text: name --><!-- /ko --><a href="#" style="float: right; padding-right: 20px;" class="hidden-desktop" data-bind="click: $root.dblClick">{{  _('Open') }}</a></span> </div>
+    <div class="span6 title"><div data-bind="marquee: { class: 'marquee-hover' }"><i class="icon-folder-open"></i><span><!-- ko text: name --><!-- /ko --><a href="#" style="float: right; padding-right: 20px;" class="hidden-desktop" data-bind="click: $root.dblClick">{{  _('Open') }}</a></span></div></div>
     <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
     <div class="span2 size" data-bind="text: formatSize(size)"></div>
 </script>

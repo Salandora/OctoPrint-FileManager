@@ -1,4 +1,4 @@
-@import "bootstrap/variables.less";
+@import "/static/less/bootstrap/variables.less";
 
 #tab_plugin_filemanager {
   .container-fluid {
@@ -33,21 +33,41 @@
     }
   }
 
-  .entry-hover > div {
-    padding: 8px;
-    line-height: 2*@baseLineHeight;
-    border-bottom: 1px solid @tableBorder;
+  .entry-hover {
+    >div {
+        padding: 8px;
+        line-height: 2*@baseLineHeight;
+        border-bottom: 1px solid @tableBorder;
+    }
+
+    .title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 10px;
+        white-space: nowrap;
+    }
   }
 
   .selected {
     font-weight: bold;
   }
 
+  .marquee-hover {
+    transition-property: margin-left;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+  }
+
   .header,
   .selected,
   .entry-hover div:hover {
     background-color: @tableBackgroundHover;
+
+    .marquee-hover {
+      transition-property: margin-left;
+      transition-timing-function: linear;
+    }
   }
 
-  @import "bootstrap\responsive-utilities.less";
+  @import "/static/less/bootstrap/responsive-utilities.less";
 }
