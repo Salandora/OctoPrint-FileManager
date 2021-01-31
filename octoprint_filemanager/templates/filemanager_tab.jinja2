@@ -26,102 +26,111 @@
             <li><a href="#" data-bind="click: function() { $root.listStyle('mixed'); }"><i class="icon-ok" data-bind="style: {visibility: listStyle() == 'mixed' ? 'visible' : 'hidden'}"></i> {{ _('Mixed') }}</a></li>
             <li class="divider"></li>
             <li class="dropdown-submenu">
-                <a href="#" tabindex="-1" data-bind="click: function() { $root.fileListHelper.changeSorting('nameAsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting().startsWith('name') ? 'visible' : 'hidden'}"></i> {{ _('Sort by name') }}</a>
+                <a href="#" tabindex="-1" data-bind="click: function() { $root.listHelper.changeSorting('nameAsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting().startsWith('name') ? 'visible' : 'hidden'}"></i> {{ _('Sort by name') }}</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('nameAsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'nameAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
-                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('nameDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'nameDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.listHelper.changeSorting('nameAsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting() == 'nameAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.listHelper.changeSorting('nameDsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting() == 'nameDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
                 </ul>
             </li>
             <li class="dropdown-submenu">
-                <a href="#" tabindex="-1" data-bind="click: function() { $root.fileListHelper.changeSorting('uploadDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting().startsWith('upload') ? 'visible' : 'hidden'}"></i> {{ _('Sort by upload date') }}</a>
+                <a href="#" tabindex="-1" data-bind="click: function() { $root.listHelper.changeSorting('uploadDsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting().startsWith('upload') ? 'visible' : 'hidden'}"></i> {{ _('Sort by upload date') }}</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('uploadAsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'uploadAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
-                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('uploadDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'uploadDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.listHelper.changeSorting('uploadAsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting() == 'uploadAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.listHelper.changeSorting('uploadDsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting() == 'uploadDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
                 </ul>
             </li>
             <li class="dropdown-submenu">
-                <a href="#" tabindex="-1" data-bind="click: function() { $root.fileListHelper.changeSorting('sizeDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting().startsWith('size') ? 'visible' : 'hidden'}"></i> {{ _('Sort by file size') }}</a>
+                <a href="#" tabindex="-1" data-bind="click: function() { $root.listHelper.changeSorting('sizeDsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting().startsWith('size') ? 'visible' : 'hidden'}"></i> {{ _('Sort by file size') }}</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('sizeAsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'sizeAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
-                    <li><a href="#" data-bind="click: function() { $root.fileListHelper.changeSorting('sizeDsc'); }"><i class="icon-ok" data-bind="style: {visibility: fileListHelper.currentSorting() == 'sizeDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.listHelper.changeSorting('sizeAsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting() == 'sizeAsc' ? 'visible' : 'hidden'}"></i> {{ _('ascending') }}</a></li>
+                    <li><a href="#" data-bind="click: function() { $root.listHelper.changeSorting('sizeDsc'); }"><i class="icon-ok" data-bind="style: {visibility: listHelper.currentSorting() == 'sizeDsc' ? 'visible' : 'hidden'}"></i> {{ _('descending') }}</a></li>
                 </ul>
             </li>
             <li class="divider"></li>
-            <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('machinecode'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'machinecode') ? 'visible' : 'hidden'}"></i> {{ _('Only show GCode files') }}</a></li>
-            <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('model'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'model') ? 'visible' : 'hidden'}"></i> {{ _('Only show STL files') }}</a></li>
+            <li><a href="#" data-bind="click: function() { $root.listHelper.toggleFilter('machinecode'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(listHelper.currentFilters(), 'machinecode') ? 'visible' : 'hidden'}"></i> {{ _('Only show GCode files') }}</a></li>
+            <li><a href="#" data-bind="click: function() { $root.listHelper.toggleFilter('model'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(listHelper.currentFilters(), 'model') ? 'visible' : 'hidden'}"></i> {{ _('Only show STL files') }}</a></li>
             {% if enableSdSupport %}
                 <li class="divider"></li>
-                <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('local'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'local') ? 'visible' : 'hidden'}"></i> {{ _('Only show files stored locally') }}</a></li>
-                <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('sd'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'sd') ? 'visible' : 'hidden'}"></i> {{ _('Only show files stored on SD') }}</a></li>
+                <li><a href="#" data-bind="click: function() { $root.listHelper.toggleFilter('local'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(listHelper.currentFilters(), 'local') ? 'visible' : 'hidden'}"></i> {{ _('Only show files stored locally') }}</a></li>
+                <li><a href="#" data-bind="click: function() { $root.listHelper.toggleFilter('sd'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(listHelper.currentFilters(), 'sd') ? 'visible' : 'hidden'}"></i> {{ _('Only show files stored on SD') }}</a></li>
             {% endif %}
             <li class="divider"></li>
-            <li><a href="#" data-bind="click: function() { $root.fileListHelper.toggleFilter('printed'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(fileListHelper.currentFilters(), 'printed') ? 'visible' : 'hidden'}"></i> {{ _('Hide successfully printed files') }}</a></li>
+            <li><a href="#" data-bind="click: function() { $root.listHelper.toggleFilter('printed'); }"><i class="icon-ok" data-bind="style: {visibility: _.contains(listHelper.currentFilters(), 'printed') ? 'visible' : 'hidden'}"></i> {{ _('Hide successfully printed files') }}</a></li>
         </ul>
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12 header">
-            <div class="span6">{{ _('Name') }}</div>
-            <div class="span4">{{ _('Created') }}</div>
-            <div class="span2">{{ _('Size') }}</div>
-        </div>
-        <div class="span12 filemanager_files_top">
-            <div class="filemanager_files entry">
+<form class="form-search" data-bind="submit: performSearch">
+    <div class="search-query-with-clear" data-bind="css: {'active-clear': searchQuery}">
+        <input type="search" class="input-block search-query" data-bind="value: searchQuery, valueUpdate: 'input'" placeholder="Search...">
+        <span class="search-clear" data-bind="click: clearSearchQuery"><i class="fas fa-times"></i></span>
+    </div>
+</form>
+
+<div class="select-group">
+    <button class="btn" data-bind="click: selectAll">{{ _('Select all') }}</button>
+    <button class="btn" data-bind="click: deselectAll">{{ _('Deselect all') }}</button>
+</div>
+
+<div class="table-container">
+    <div class="table-container-header">
+        <table class="table">
+            <thead>
+                <tr class="header">
+                    <!-- ko if: $root.settings.settings.plugins.filemanager.enableCheckboxes -->
+                    <th class="checkboxes"><!-- checkbox column --></th>
+                    <!-- /ko -->
+                    <th class="title">{{ _('Name') }}</th>
+                    <th class="uploaded">{{ _('Uploaded') }}</th>
+                    <th class="size">{{ _('Size') }}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div class="table-container-body">
+        <table class="table table-hover">
+            <tbody>
                 <!-- ko if: currentPath() != "" -->
-                <div class="span12" data-bind="click: function() { var path = $root.currentPath().split('/'); path.pop(); $root.changeFolderByPath(path.join('/')); }"><i class="icon-arrow-left"></i> {{  _('Back') }}</div>
+                <tr><td data-bind="click: $root.navigateUp"><i class="icon-arrow-left"></i> {{  _('Back') }}</td></tr>
                 <!-- /ko -->
 
-                <!-- ko if: listStyle() == 'folders_files' -->
-                <!-- ko slimScrolledForeach: foldersOnlyList -->
-                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
+                <!-- ko foreach: $root.filesAndFolders -->
+                <tr data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor(true, $data), data: $data }"></tr>
                 <!-- /ko -->
-                <!-- ko slimScrolledForeach: filesOnlyList -->
-                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
-                <!-- /ko -->
-                <!-- /ko -->
-                <!-- ko if: listStyle() == 'files_folders' -->
-                <!-- ko slimScrolledForeach: filesOnlyList -->
-                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
-                <!-- /ko -->
-                <!-- ko slimScrolledForeach: foldersOnlyList -->
-                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
-                <!-- /ko -->
-                <!-- /ko -->
-                <!-- ko if: listStyle() == 'mixed' -->
-                <!-- ko slimScrolledForeach: fileListHelper.paginatedItems -->
-                <div class="span12 row-fluid" data-bind="singleOrDoubleClick: { click: $root.selectItem, dblclick: $root.dblClick }, css: { 'selected': $root.isSelected($data) }, attr: { id: $root.getEntryId($data) }, template: { name: $root.templateFor($data), data: $data }"></div>
-                <!-- /ko -->
-                <!-- /ko -->
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
 </div>
 
+<script type="text/html" id="filemanager_template_checkboxed">
+    <td class="checkboxes" data-bind="stopBubble: true"><input type="checkbox" data-bind="checkedValue: $data, checked: $root.selectedFiles" /></td>
+    <!-- ko template:{ name: $root.templateFor(false, $data), data: $data } --><!-- /ko -->
+</script>
+
 <script type="text/html" id="filemanager_template_machinecode">
-    <div class="span6 title" data-bind="css: $root.files.getSuccessClass($data)">
-        <div class="span12"><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: display --><!-- /ko --></div></div>
-        <div class="span12" data-bind="visible: name != display"><div class="internal" data-bind="marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name"></span></div></div>
-    </div>
-    <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
-    <div class="span2 size" data-bind="text: formatSize(size)"></div>
+    <td class="title" data-bind="css: $root.files.getSuccessClass($data)">
+        <div><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: display --><!-- /ko --></div></div>
+        <div><div class="internal" data-bind="visible: name != display, marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name" /></div></div>
+    </td>
+    <td class="uploaded" data-bind="text: formatTimeAgo(date)"></td>
+    <td class="size" data-bind="text: formatSize(size)"></td>
 </script>
 
 <script type="text/html" id="filemanager_template_model">
-    <div class="span6 title">
-        <div class="span12"><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: display --><!-- /ko --></div></div>
-        <div class="span12" data-bind="visible: name != display"><div class="internal" data-bind="marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name"></span></div></div>
-    </div>
-    <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
-    <div class="span2 size" data-bind="text: formatSize(size)"></div>
+    <td class="title">
+        <div><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: display --><!-- /ko --></div></div>
+        <div><div class="internal" data-bind="visible: name != display, marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name" /></div></div>
+    </td>
+    <td class="uploaded" data-bind="text: formatTimeAgo(date)"></td>
+    <td class="size" data-bind="text: formatSize(size)"></td>
 </script>
 
 <script type="text/html" id="filemanager_template_folder">
-    <div class="span6 title">
-        <div class="span12"><div data-bind="marquee: { class: 'marquee-hover' }"><i class="icon-folder-open"></i><span><!-- ko text: display --><!-- /ko --><a href="#" style="float: right; padding-right: 20px;" class="hidden-desktop" data-bind="click: $root.dblClick">{{  _('Open') }}</a></span></div></div>
-        <div class="span12" data-bind="visible: name != display"><div class="internal" data-bind="marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name"></span></div></div>
-    </div>
-    <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
-    <div class="span2 size" data-bind="text: formatSize(size)"></div>
+    <td class="title">
+        <div><div data-bind="marquee: { class: 'marquee-hover' }"><i class="icon-folder-open"></i> <span data-bind="text: display"></span></div></div>
+        <div><div class="internal" data-bind="visible: name != display, marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name" /></div></div>
+    </td>
+    <td class="uploaded" data-bind="text: formatTimeAgo(date)"></td>
+    <td class="size" data-bind="text: formatSize(size)"></td>
 </script>

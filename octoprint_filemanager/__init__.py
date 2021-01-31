@@ -37,14 +37,20 @@ class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
 
 	def get_assets(self):
 		return dict(
-			js=["js/jquery.fileDownload.js", "js/ko.single_double_click.js", "js/ko.marquee.js", "js/filemanager.js"],
+			js=["js/jquery.fileDownload.js", "js/ko.single_double_click.js", "js/ko.marquee.js", "js/ko.stopBubble.js", "js/filemanager.js"],
 			css=["css/fileManager-generated.min.css"],
 			less=["less/fileManager.less"]
 		)
 
+	def get_settings_defaults(self):
+		return dict(
+			enableCheckboxes=False
+		)
+
 	def get_template_configs(self):
 		return [
-			dict(type="tab", template="filemanager_tab.jinja2", custom_bindings=True)
+			dict(type="tab", template="filemanager_tab.jinja2", custom_bindings=True),
+			dict(type="settings", template="filemanager_settings.jinja2", custom_bindings=False)
 		]
 
 	def _copyMoveCommand(self, workerID, target, command, source, destination):
@@ -338,6 +344,24 @@ class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
 				user="Salandora",
 				repo="OctoPrint-FileManager",
 				current=self._plugin_version,
+
+				stable_branch=dict(
+					name="Stable",
+					branch="master",
+					comittish=[
+						"master"
+					]
+				),
+				prerelease_branches=[
+					dict(
+						name="Development",
+						branch="devel",
+						comittish=[
+							"devel",
+							"master"
+						]
+					)
+				],
 
 				# update method: pip
 				pip="https://github.com/Salandora/OctoPrint-FileManager/archive/{target_version}.zip"

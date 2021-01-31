@@ -11,7 +11,7 @@ ko.bindingHandlers.marquee = {
             });
 
             container.append(element.clone());
-            $('body').append(container);
+            element.parent().append(container);
             var rect = { width: container.width(), height: container.height() };
             container.remove();
 

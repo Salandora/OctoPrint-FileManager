@@ -1,74 +1,83 @@
 @import "/static/less/bootstrap/variables.less";
 
 #tab_plugin_filemanager {
-  .container-fluid {
-    padding: 0;
-  }
-
-  .container-fluid > .row-fluid {
-    border: 1px solid @tableBorder;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.075);
-  }
-
-  .filemanager_files_top {
-    height: 600px;
-  }
-
-  .row-fluid [class*="span"] {
-    margin-left: 0;
-    min-height: unset;
-  }
-
-  .header {
-    line-height: @baseLineHeight;
-    border-bottom: 1px solid @tableBorder;
-  }
-
-  .header > div {
-    padding: 8px;
-    vertical-align: middle;
-    border-right: 1px solid #ccc;
-    &:last-child {
-      border-right: 0;
-    }
-  }
-
-  .entry {
-    >div {
-        padding: 10px 8px;
-        border-bottom: 1px solid @tableBorder;
+    .selected {
+        font-weight: bold;
     }
 
-    .title {
+    .marquee-hover {
+        transition-property: margin-left;
+        transition-duration: 0.5s;
+        transition-timing-function: linear;
+    }
+
+    .header,
+    .selected {
+        background-color: @tableBackgroundHover;
+    }
+
+    .internal {
+        font-size: 85%;
+        color: #999;
+        word-break: break-all;
+    }
+
+    .select-group {
+        margin-bottom: 5px;
+    }
+
+    .form-search {
+        .search-query-with-clear {
+            padding: 0px 15px;
+        }
+
+        input[type=search] {
+            box-sizing: border-box;
+            width: 100%;
+            height: 30px;
+        }
+    }
+
+    .table-container {
+        border: 1px solid #ddd;
+        border-radius: 5px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        margin-right: 10px;
-        white-space: nowrap;
+        overflow-y: hidden;
+
+        .table-container-header {
+            overflow: hidden;
+        }
+
+        .table-container-body {
+            height: 154px;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+
+        table {
+            margin-bottom: 0px;
+            table-layout: fixed;
+
+            td, th {
+                white-space: normal;
+            }
+
+            .checkboxes {
+                width: 14px;
+            }
+
+            .title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .uploaded {
+                width: 20%;
+            }
+            .size {
+                width: 15%;
+            }
+        }
     }
-  }
-
-  .selected {
-    font-weight: bold;
-  }
-
-  .marquee-hover {
-    transition-property: margin-left;
-    transition-duration: 0.5s;
-    transition-timing-function: linear;
-  }
-
-  .header,
-  .selected,
-  .entry-hover div:hover {
-    background-color: @tableBackgroundHover;
-  }
-
-  .internal {
-    font-size: 85%;
-    color: #999;
-    word-break: break-all;
-  }
-
-  @import "/static/less/bootstrap/responsive-utilities.less";
 }

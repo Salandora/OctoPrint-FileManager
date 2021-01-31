@@ -14,6 +14,7 @@ $(function() {
         self.files = parameters[0];
         self.loginState = parameters[1];
         self.slicing = parameters[2];
+        self.settings = parameters[3];
 
         self.selectedFiles = ko.observableArray([]);
         self.currentPath = ko.observable("");
@@ -24,7 +25,7 @@ $(function() {
         // For Rename and Create Folder dialog
         self.name = ko.observable("");
 
-        self.fileListHelper = new ItemListHelper(
+        self.listHelper = new ItemListHelper(
             "filemanagerList",
             {
                 "nameAsc": function(a, b) {
@@ -87,18 +88,72 @@ $(function() {
             0
         );
 
+        self.searchQuery = ko.observable(undefined);
+        self.searchQuery.subscribe(function () {
+            self.performSearch();
+        });
+
+        self.clearSearchQuery = function () {
+            self.searchQuery("");
+        };
+
+        self.performSearch = function (e) {
+            var query = self.searchQuery();
+            if (query !== undefined && query.trim() !== "") {
+                query = query.toLocaleLowerCase();
+
+                var recursiveSearch = function (entry) {
+                    if (entry === undefined) {
+                        return false;
+                    }
+
+                    var success =
+                        (entry["display"] &&
+                            entry["display"].toLocaleLowerCase().indexOf(query) > -1) ||
+                        entry["name"].toLocaleLowerCase().indexOf(query) > -1;
+                    if (!success && entry["type"] === "folder" && entry["children"]) {
+                        return _.any(entry["children"], recursiveSearch);
+                    }
+
+                    return success;
+                };
+
+                self.listHelper.changeSearchFunction(recursiveSearch);
+            } else {
+                self.listHelper.resetSearch();
+            }
+
+            return false;
+        };
+
         self.foldersOnlyList = ko.dependentObservable(function() {
             filter = function(data) { return data["type"] && data["type"] == "folder"; };
-            return _.filter(self.fileListHelper.paginatedItems(), filter);
+            return _.filter(self.listHelper.paginatedItems(), filter);
         });
         self.filesOnlyList = ko.dependentObservable(function() {
             filter = function(data) { return data["type"] && data["type"] != "folder"; };
-            return _.filter(self.fileListHelper.paginatedItems(), filter);
+            return _.filter(self.listHelper.paginatedItems(), filter);
+        });
+
+        self.filesAndFolders = ko.dependentObservable(function() {
+            var style = self.listStyle();
+            if (style === "folders_files" || style === "files_folders") {
+                var files = self.filesOnlyList();
+                var folders = self.foldersOnlyList();
+
+                if (style === "folders_files") {
+                    return folders.concat(files);
+                } else {
+                    return files.concat(folders);
+                }
+            } else {
+                return self.listHelper.paginatedItems();
+            }
         });
 
         if (self.files.hasOwnProperty("allItems"))
             self.files.allItems.subscribe(function (newValue) {
-                self.fileListHelper.updateItems(newValue);
+                self.listHelper.updateItems(newValue);
                 self.selectedFiles([]);
                 self.changeFolderByPath(self.currentPath());
             });
@@ -117,18 +172,37 @@ $(function() {
             self.selectedFiles([]);
 
             self.currentPath(OctoPrint.files.pathForEntry(data));
-            self.fileListHelper.updateItems(data.children);
+            self.listHelper.updateItems(data.children);
         };
         self.changeFolderByPath = function(path) {
             var element = self.files.elementByPath(path, { children: self.files.allItems() });
             if (element) {
                 self.currentPath(path);
-                self.fileListHelper.updateItems(element.children);
+                self.listHelper.updateItems(element.children);
             }
             else{
                 self.currentPath("");
-                self.fileListHelper.updateItems(self.files.allItems());
+                self.listHelper.updateItems(self.files.allItems());
             }
+        };
+
+        self.navigateUp = function() {
+            var path = self.currentPath().split("/");
+            path.pop();
+            self.changeFolderByPath(path.join("/"));
+        }
+
+        self.selectAll = function() {
+            var list = self.filesAndFolders();
+
+            _.each(list, function(element) {
+                if (!self.isSelected(element)) {
+                    self.selectedFiles.push(element);
+                }
+            });
+        };
+        self.deselectAll = function() {
+            self.selectedFiles.removeAll();
         };
 
         self.selectItem = function(data, event) {
@@ -141,7 +215,11 @@ $(function() {
             return self.selectedFiles.indexOf(data) != -1;
         };
 
-        self.templateFor = function(data) {
+        self.templateFor = function(includeCheckboxTemplate, data) {
+            if (includeCheckboxTemplate && self.settings.settings.plugins.filemanager.enableCheckboxes())
+            {
+                return "filemanager_template_checkboxed";
+            }
             return "filemanager_template_" + data.type;
         };
 
@@ -163,10 +241,12 @@ $(function() {
         self.enableDownload = function() {
             var selected = self.selectedFiles();
 
-            _.each(self.selectedFiles(), function(element) {
+            var data = self.selectedFiles();
+            for (var i = 0; i < data.length; i++) {
+                var element = data[i];
                 if (!element.hasOwnProperty("type") || !element.hasOwnProperty("origin") || element.type == "folder" || element.origin != "local")
                     return false;
-            });
+            }
 
             return selected.length != 0;
         };
@@ -389,11 +469,17 @@ $(function() {
 
             self.addFolderDialog = $("#add_folder_dialog");
         };
+
+        self.onAfterBinding = function() {
+            $(".table-container-body").slimScroll({
+                height: '500px'
+            });
+        };
     }
 
     OCTOPRINT_VIEWMODELS.push([
         FilemanagerViewModel,
-        ["gcodeFilesViewModel", "loginStateViewModel", "slicingViewModel"],
+        ["gcodeFilesViewModel", "loginStateViewModel", "slicingViewModel", "settingsViewModel"],
         ["#tab_plugin_filemanager", "#fileManagerNameDialog"]
     ]);
 });
