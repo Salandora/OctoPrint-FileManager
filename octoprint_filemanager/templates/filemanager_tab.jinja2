@@ -68,7 +68,7 @@
             <div class="span2">{{ _('Size') }}</div>
         </div>
         <div class="span12 filemanager_files_top">
-            <div class="filemanager_files entry-hover">
+            <div class="filemanager_files entry">
                 <!-- ko if: currentPath() != "" -->
                 <div class="span12" data-bind="click: function() { var path = $root.currentPath().split('/'); path.pop(); $root.changeFolderByPath(path.join('/')); }"><i class="icon-arrow-left"></i> {{  _('Back') }}</div>
                 <!-- /ko -->
@@ -100,19 +100,28 @@
 </div>
 
 <script type="text/html" id="filemanager_template_machinecode">
-    <div class="span6 title" data-bind="css: $root.files.getSuccessClass($data)"><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: name --><!-- /ko --></div></div>
+    <div class="span6 title" data-bind="css: $root.files.getSuccessClass($data)">
+        <div class="span12"><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: display --><!-- /ko --></div></div>
+        <div class="span12" data-bind="visible: name != display"><div class="internal" data-bind="marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name"></span></div></div>
+    </div>
     <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
     <div class="span2 size" data-bind="text: formatSize(size)"></div>
 </script>
 
 <script type="text/html" id="filemanager_template_model">
-    <div class="span6 title"><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: name --><!-- /ko --></div></div>
+    <div class="span6 title">
+        <div class="span12"><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: display --><!-- /ko --></div></div>
+        <div class="span12" data-bind="visible: name != display"><div class="internal" data-bind="marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name"></span></div></div>
+    </div>
     <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
     <div class="span2 size" data-bind="text: formatSize(size)"></div>
 </script>
 
 <script type="text/html" id="filemanager_template_folder">
-    <div class="span6 title"><div data-bind="marquee: { class: 'marquee-hover' }"><i class="icon-folder-open"></i><span><!-- ko text: name --><!-- /ko --><a href="#" style="float: right; padding-right: 20px;" class="hidden-desktop" data-bind="click: $root.dblClick">{{  _('Open') }}</a></span></div></div>
+    <div class="span6 title">
+        <div class="span12"><div data-bind="marquee: { class: 'marquee-hover' }"><i class="icon-folder-open"></i><span><!-- ko text: display --><!-- /ko --><a href="#" style="float: right; padding-right: 20px;" class="hidden-desktop" data-bind="click: $root.dblClick">{{  _('Open') }}</a></span></div></div>
+        <div class="span12" data-bind="visible: name != display"><div class="internal" data-bind="marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name"></span></div></div>
+    </div>
     <div class="span4 uploaded" data-bind="text: formatTimeAgo(date)"></div>
     <div class="span2 size" data-bind="text: formatSize(size)"></div>
 </script>

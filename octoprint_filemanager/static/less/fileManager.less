@@ -17,6 +17,7 @@
 
   .row-fluid [class*="span"] {
     margin-left: 0;
+    min-height: unset;
   }
 
   .header {
@@ -33,10 +34,9 @@
     }
   }
 
-  .entry-hover {
+  .entry {
     >div {
-        padding: 8px;
-        line-height: 2*@baseLineHeight;
+        padding: 10px 8px;
         border-bottom: 1px solid @tableBorder;
     }
 
@@ -62,11 +62,12 @@
   .selected,
   .entry-hover div:hover {
     background-color: @tableBackgroundHover;
+  }
 
-    .marquee-hover {
-      transition-property: margin-left;
-      transition-timing-function: linear;
-    }
+  .internal {
+    font-size: 85%;
+    color: #999;
+    word-break: break-all;
   }
 
   @import "/static/less/bootstrap/responsive-utilities.less";
