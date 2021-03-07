@@ -6,4 +6,10 @@
             <input type="checkbox" data-bind="checked: settings.plugins.filemanager.enableCheckboxes">{{ _('Enable checkboxes') }}
         </label>
     </div>
+    <div class="controls">
+        <label class="checkbox">
+            <input type="checkbox" data-bind="checked: settings.plugins.filemanager.enableThumbnails">{{ _('Enable thumbnails') }}
+        </label>
+        <i>{{ _('Needs a plugin like prusaslicerthumbnail or curathumbnail to work') }}</i>
+    </div>
 </div>

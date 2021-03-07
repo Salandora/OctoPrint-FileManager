@@ -36,15 +36,25 @@ class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
 			self._logger.warning("Some workers weren't ready, but OctoPrint got shutdown.")
 
 	def get_assets(self):
-		return dict(
+		assets = dict(
 			js=["js/jquery.fileDownload.js", "js/ko.single_double_click.js", "js/ko.marquee.js", "js/ko.stopBubble.js", "js/filemanager.js"],
 			css=["css/fileManager-generated.min.css"],
-			less=["less/fileManager.less"]
+			less=[
+				"less/_variables.less",
+				"less/fileManager.less"
+			]
 		)
+
+		if "PrintTimeGenius" in self._plugin_manager.enabled_plugins:
+			assets['css'].append("css/print-time-genius-fix-generated.min.css")
+			assets['less'].append("less/print-time-genius-fix.less")
+
+		return assets
 
 	def get_settings_defaults(self):
 		return dict(
-			enableCheckboxes=False
+			enableCheckboxes=False,
+			enableThumbnails=False
 		)
 
 	def get_template_configs(self):
