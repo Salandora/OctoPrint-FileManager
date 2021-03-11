@@ -92,7 +92,14 @@
         <table class="table table-hover">
             <tbody>
                 <!-- ko if: currentPath() != "" -->
-                <tr><td data-bind="click: $root.navigateUp"><i class="icon-arrow-left"></i> {{  _('Back') }}</td></tr>
+                <tr data-bind="click: $root.navigateUp">
+                    <!-- ko if: $root.settings.settings.plugins.filemanager.enableCheckboxes -->
+                    <td class="checkboxes"></td>
+                    <!-- /ko -->
+                    <td class="title_td"><i class="icon-arrow-left"></i> {{  _('Back') }}</td>
+                    <td class="uploaded"></td>
+                    <td class="size"></td>
+                </tr>
                 <!-- /ko -->
 
                 <!-- ko foreach: $root.filesAndFolders -->
@@ -109,7 +116,7 @@
 </script>
 
 <script type="text/html" id="filemanager_template_machinecode">
-    <td>
+    <td class="title_td">
         <!-- ko if: $root.settings.settings.plugins.filemanager.enableThumbnails -->
             <!-- ko if: $data.thumbnail -->
             <img width="100%" data-bind="attr: { src: thumbnail }">
@@ -128,8 +135,8 @@
 </script>
 
 <script type="text/html" id="filemanager_template_model">
-    <td class="title">
-        <div><div data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: display --><!-- /ko --></div></div>
+    <td class="title_td">
+        <div><div class="title" data-bind="marquee: { class: 'marquee-hover' }"><!-- ko text: display --><!-- /ko --></div></div>
         <div><div class="internal" data-bind="visible: display && name != display && $root.files.showInternalFilename, marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name" /></div></div>
     </td>
     <td class="uploaded" data-bind="text: formatTimeAgo(date)"></td>
@@ -137,8 +144,8 @@
 </script>
 
 <script type="text/html" id="filemanager_template_folder">
-    <td class="title">
-        <div><div data-bind="marquee: { class: 'marquee-hover' }"><i class="icon-folder-open"></i> <span data-bind="text: display"></span></div></div>
+    <td class="title_td">
+        <div><div class="title" data-bind="marquee: { class: 'marquee-hover' }"><i class="icon-folder-open"></i> <span data-bind="text: display"></span></div></div>
         <div><div class="internal" data-bind="visible: display && name != display && $root.files.showInternalFilename, marquee: { class: 'marquee-hover' }">{{ _('Internal') }}: <span data-bind="text: name" /></div></div>
     </td>
     <td class="uploaded" data-bind="text: formatTimeAgo(date)"></td>
