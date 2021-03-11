@@ -116,7 +116,7 @@
             <!-- /ko -->
         <!-- /ko -->
         <div>
-            <i class="fas fa-file-code" data-bind="visible: $root.settings.settings.plugins.filemanager.enableThumbnails && $data.thumbnail == null"></i>
+            <i class="fas fa-file-code" data-bind="visible: $root.settings.settings.plugins.filemanager.enableThumbnails() && $data.thumbnail == null"></i>
             <div class="title" data-bind="css: $root.files.getSuccessClass($data), marquee: { class: 'marquee-hover' }">
                 <!-- ko text: display --><!-- /ko -->
             </div>
