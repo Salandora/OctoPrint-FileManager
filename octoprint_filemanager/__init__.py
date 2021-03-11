@@ -54,7 +54,11 @@ class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
 	def get_settings_defaults(self):
 		return dict(
 			enableCheckboxes=False,
-			enableThumbnails=False
+			enableThumbnails=False,
+			thumbnail=dict(
+				showIconNoThumbnail=False,
+				width=250
+			)
 		)
 
 	def get_template_configs(self):
