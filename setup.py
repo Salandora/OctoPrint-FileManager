@@ -14,7 +14,7 @@ plugin_package = "octoprint_filemanager"
 plugin_name = "OctoPrint-FileManager"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "0.1.7rc1"
+plugin_version = "0.1.7rc2"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module

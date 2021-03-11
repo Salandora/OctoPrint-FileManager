@@ -12,4 +12,15 @@
         </label>
         <i>{{ _('Needs a plugin like prusaslicerthumbnail or curathumbnail to work') }}</i>
     </div>
+
+    <div data-bind="visible: settings.plugins.filemanager.enableThumbnails">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" data-bind="checked: settings.plugins.filemanager.thumbnail.showIconNoThumbnail">{{ _('Display a generic icon if no thumbnail was found') }}
+            </label>
+
+            <label for="thumbnail_Width">{{ _('Width of the thumbnail:') }} </label>
+            <input type="number" id="thumbnail_Width" min="1" step="1" data-bind="value: settings.plugins.filemanager.thumbnail.width">
+        </div>
+    </div>
 </div>
