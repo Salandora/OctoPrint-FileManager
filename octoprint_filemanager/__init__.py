@@ -364,10 +364,10 @@ class FilemanagerPlugin(octoprint.plugin.TemplatePlugin,
 				),
 				prerelease_branches=[
 					dict(
-						name="Development",
-						branch="devel",
+						name="Development RC",
+						branch="devel_rc",
 						comittish=[
-							"devel",
+							"devel_rc",
 							"master"
 						]
 					)
